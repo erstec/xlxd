@@ -46,6 +46,65 @@ for ($i = 1; $i <= $NumberOfModules; $i++) {
  </tr>';
 }
 
+echo '
+<tr height="50"></tr>
+';
+
+echo '
+<tr height="50">
+<th colspan="11"<td align="center">'. "Available Modules / Naudojami moduliai" .'</td></th>
+</tr>
+<tr height="auto" bgcolor="'.$odd.'">
+<td align="center" colspan="11">'. '
+<br>
+<b>Module A - ' . (empty($PageOptions['ModuleNames']["A"]) ? '-' : $PageOptions['ModuleNames']["A"]) . '</b><br>
+Interlink XLX DMR TG 4001 (sujungta su BM TG24601) <-> YSF64200<br>
+<br>';
+//<b>Module B - ' . (empty($PageOptions['ModuleNames']["B"]) ? '-' : $PageOptions['ModuleNames']["B"]) . '</b><br>
+//<u><i>FOR INTERNAL TESTING!</i></u><br>
+//Interlink XLX DMR TG 4002 <-> YSF64200<br>
+//<br>
+echo '
+' .'</td>
+</tr>';
+
+echo '
+<tr height="50"></tr>
+';
+
+echo '
+<tr height="50">
+<th colspan="11"<td align="center">'. "How to configure HotSpot / HotSpot nustatymai" .'</td></th>
+</tr>
+<tr height="auto" bgcolor="'.$odd.'">
+<td align="center" colspan="11">'. '
+<br>
+<b>DMR vartotojams</b><br>
+<i>Konfigūruojant Pi-Star\'ą (XLX veiks kartu su DMR)</i><br>' . nl2br()
+.'XLX Master: XLX_642, XLX Startup Module: A<br>
+<u>BrandMeister Network ESSID - privalomas, pastebėta, kad be jo neveikia</u><br>
+Stotelėje nustatyti - Group Call DMR TG6, TS2<br>
+<br>
+Kelios naudingos komandos:<br>
+Private call to:<br>
+64000 - Disconnect<br>
+65000 - Status<br>
+Po jų nepamiršti persijungt agtal į Group Call<br>
+<br>
+<i>DMR be hotspoto, arba jei hotspotas netūri/nesinori konfigūruot XLX\'ą:</i><br>
+Stotelėje nustatyti - Private Call 68642, TS2<br>
+PTT<br>
+<br>
+<img src="./img/dmr_config.png"/><br>
+<br>
+<b>YSF vartotojams (prisijungus YSF, prie modulio linkiną automatiškai):</b><br>
+YSF Reflektorius: YSF64200 / XLX642 (tiek tiesiai iš stotelės, tiek iš Pi-Star\'o)<br>
+<br>
+<img src="./img/ysf_config.png"/><br>
+<br>
+' .'</td>
+</tr>';
+
 ?>
 
 </table>
