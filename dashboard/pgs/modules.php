@@ -119,6 +119,10 @@ Po jų nepamiršti persijungt agtal į Group Call<br>
 <i>DMR be hotspoto, arba jei hotspotas netūri/nesinori konfigūruot XLX\'ą:</i><br>
 Stotelėje nustatyti - Private Call 68642, TS2<br>
 PTT<br>
+Private Call 64001 - Module A pasirinkimas<br>
+PTT<br>
+Stotelėje nustatyti - Group Call DMR TG6, TS2<br>
+Kalbėti<br>
 <br>
 <img src="./img/dmr_config.png"/><br>
 <br>
