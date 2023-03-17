@@ -76,6 +76,16 @@ if ($CallingHome['Active']) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4JDNKJBTD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-L4JDNKJBTD');
+    </script>
+   
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -152,7 +162,7 @@ if ($CallingHome['Active']) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand"><?php echo $Reflector->GetReflectorName(); ?> Multiprotocol Gateway</span>
+            <span class="navbar-brand"><?php echo $Reflector->GetReflectorName(); ?> Multiprotocol Gateway&nbsp;<?php echo $PageOptions['CustomTXT']; ?></span>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -180,6 +190,8 @@ if ($CallingHome['Active']) {
                             href="./index.php?show=reflectors">Reflectorlist</a></li>
                 <li<?php echo ($_GET['show'] == "liveircddb") ? ' class="active"' : ''; ?>><a
                             href="./index.php?show=liveircddb">D-Star live</a></li>
+                <li<?php echo ($_GET['show'] == "liveircddb") ? ' class="active"' : ''; ?>><a
+                            href="../index.php">Light mode</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

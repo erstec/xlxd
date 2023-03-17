@@ -158,12 +158,14 @@ else {
                    if ($_GET['show'] == 'traffic') { echo 'active'; }
                    echo '">Traffic statistics</a></td>';
                }
-		     if ($PageOptions['IRCDDB']['Show']) {
+		       if ($PageOptions['IRCDDB']['Show']) {
                    echo '
                <td><a href="./index.php?show=liveircddb" class="menulink';
                    if ($_GET['show'] == 'liveircddb') { echo 'active'; }
                    echo '">D-Star live</a></td>';
-              }
+               }
+
+               echo '<td><a href="/new" class="menulink">Dark mode</a></td>';
                
                ?>
             </tr>
