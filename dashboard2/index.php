@@ -190,7 +190,7 @@ if ($CallingHome['Active']) {
                             href="./index.php?show=reflectors">Reflectorlist</a></li>
                 <li<?php echo ($_GET['show'] == "liveircddb") ? ' class="active"' : ''; ?>><a
                             href="./index.php?show=liveircddb">D-Star live</a></li>
-                <li<?php echo ($_GET['show'] == "liveircddb") ? ' class="active"' : ''; ?>><a
+                <li><a
                             href="../index.php">Light mode</a></li>
             </ul>
         </div>
