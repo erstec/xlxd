@@ -16,6 +16,10 @@ body {
   margin-bottom: 60px;
 }
 
+a {
+  font-weight: bold;
+}
+
 * {
     border-top: hidden;
 }
