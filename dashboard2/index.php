@@ -96,7 +96,7 @@ if ($CallingHome['Active']) {
     <meta name="robots" content="<?php echo $PageOptions['MetaAuthor']; ?>"/>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title><?php echo $Reflector->GetReflectorName(); ?> Reflector Dashboard</title>
+    <title><?php echo $Reflector->GetReflectorName(); ?> Reflector Dashboard - Dark Mode</title>
     <link rel="icon" href="./favicon.ico" type="image/vnd.microsoft.icon">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
