@@ -137,23 +137,26 @@ else {
       var PageRefresh;
       
       function ReloadPage() {
-         $.get("./index.php'.(isset($_GET['show'])?'?show='.$_GET['show']:'').'", function(data) {
-            var BodyStart = data.indexOf("<bo"+"dy");
-            var BodyEnd = data.indexOf("</bo"+"dy>");
-            if ((BodyStart >= 0) && (BodyEnd > BodyStart)) {
-               BodyStart = data.indexOf(">", BodyStart)+1;
-               $("body").html(data.substring(BodyStart, BodyEnd));
-            }
-         })
-            .always(function() {
-               PageRefresh = setTimeout(ReloadPage, '.$PageOptions['PageRefreshDelay'].');
-            });
+        //if (document.hasFocus()) {
+            $.get("./index.php'.(isset($_GET['show'])?'?show='.$_GET['show']:'').'", function(data) {
+                var BodyStart = data.indexOf("<bo"+"dy");
+                var BodyEnd = data.indexOf("</bo"+"dy>");
+                if ((BodyStart >= 0) && (BodyEnd > BodyStart)) {
+                    BodyStart = data.indexOf(">", BodyStart)+1;
+                    $("body").html(data.substring(BodyStart, BodyEnd));
+                }
+            })
+                .always(function() {
+                    PageRefresh = setTimeout(ReloadPage, '.$PageOptions['PageRefreshDelay'].');
+                });
+      	//} 
       }';
 
      if (!isset($_GET['show']) || (($_GET['show'] != 'liveircddb') && ($_GET['show'] != 'reflectors') && ($_GET['show'] != 'interlinks'))) {
          echo '
       PageRefresh = setTimeout(ReloadPage, '.$PageOptions['PageRefreshDelay'].');';
      }
+    
      echo '
 
       function SuspendPageRefresh() {
