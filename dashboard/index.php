@@ -80,6 +80,16 @@ else {
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4JDNKJBTD"></script>
+   <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+     gtag('config', 'G-L4JDNKJBTD');
+   </script>
+
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
    <meta name="description" content="<?php echo $PageOptions['MetaDescription']; ?>" />
    <meta name="keywords"    content="<?php echo $PageOptions['MetaKeywords']; ?>" />
@@ -138,7 +148,7 @@ else {
                <td><a href="./index.php" class="menulink<?php if ($_GET['show'] == '') { echo 'active'; } ?>">Users / Modules</a></td>
                <td><a href="./index.php?show=repeaters" class="menulink<?php if ($_GET['show'] == 'repeaters') { echo 'active'; } ?>">Repeaters / Nodes (<?php echo $Reflector->NodeCount(); ?>)</a></td>
                <td><a href="./index.php?show=peers" class="menulink<?php if ($_GET['show'] == 'peers') { echo 'active'; } ?>">Peers (<?php echo $Reflector->PeerCount(); ?>)</a></td>
-               <td><a href="./index.php?show=modules" class="menulink<?php if ($_GET['show'] == 'modules') { echo 'active'; } ?>">Modules list</a></td>
+               <td><a href="./index.php?show=modules" class="menulink<?php if ($_GET['show'] == 'modules') { echo 'active'; } ?>">Info / How to</a></td>
                <td><a href="./index.php?show=reflectors" class="menulink<?php if ($_GET['show'] == 'reflectors') { echo 'active'; } ?>">Reflectors list</a></td>
                <?php
                
