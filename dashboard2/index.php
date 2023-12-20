@@ -6,6 +6,8 @@
  *  The dashboard is based of the Bootstrap dashboard template. 
 */
 
+session_start();
+
 if (file_exists("./pgs/functions.php")) {
     require_once("./pgs/functions.php");
 } else {
@@ -31,51 +33,75 @@ $Reflector->SetXMLFile($Service['XMLFile']);
 
 $Reflector->LoadXML();
 
-if ($CallingHome['Active']) {
-
-    $CallHomeNow = false;
-    if (!file_exists($CallingHome['HashFile'])) {
-        $Hash = CreateCode(16);
-        $LastSync = 0;
-        $Ressource = @fopen($CallingHome['HashFile'], "w");
-        if ($Ressource) {
-            @fwrite($Ressource, "<?php\n");
-            @fwrite($Ressource, "\n" . '$LastSync = 0;');
-            @fwrite($Ressource, "\n" . '$Hash     = "' . $Hash . '";');
-            @fwrite($Ressource, "\n\n" . '?>');
-            @fclose($Ressource);
-            @exec("chmod 777 " . $CallingHome['HashFile']);
-            $CallHomeNow = true;
-        }
-    } else {
-        include($CallingHome['HashFile']);
-        if ($LastSync < (time() - $CallingHome['PushDelay'])) {
-            $Ressource = @fopen($CallingHome['HashFile'], "w");
-            if ($Ressource) {
-                @fwrite($Ressource, "<?php\n");
-                @fwrite($Ressource, "\n" . '$LastSync = ' . time() . ';');
-                @fwrite($Ressource, "\n" . '$Hash     = "' . $Hash . '";');
-                @fwrite($Ressource, "\n\n" . '?>');
-                @fclose($Ressource);
-            }
-            $CallHomeNow = true;
-        }
-    }
-
-    if ($CallHomeNow || isset($_GET['callhome'])) {
-        $Reflector->SetCallingHome($CallingHome, $Hash);
-        $Reflector->ReadInterlinkFile();
-        $Reflector->PrepareInterlinkXML();
-        $Reflector->PrepareReflectorXML();
-        $Reflector->CallHome();
-    }
-} else {
-    $Hash = "";
+if ($CallingHome['Active']) { 
+   
+   $CallHomeNow = false;
+   $LastSync = 0;
+   $Hash = "";
+   
+   if (!file_exists($CallingHome['HashFile'])) {
+      $Ressource = fopen($CallingHome['HashFile'], "w+"); 
+      if ($Ressource) { 
+         $Hash = CreateCode(16);
+		   @fwrite($Ressource, "<?php\n"); 
+		   @fwrite($Ressource, "\n".'$Hash = "'.$Hash.'";'); 
+		   @fwrite($Ressource, "\n\n".'?>'); 
+		   @fflush($Ressource); 
+		   @fclose($Ressource); 
+		   @chmod($HashFile, 0777); 
+		}
+   }
+   else {
+      require_once($CallingHome['HashFile']);
+   }
+   
+   if (@file_exists($CallingHome['LastCallHomefile'])) {
+      if (@is_readable($CallingHome['LastCallHomefile'])) {
+         $tmp      = @file($CallingHome['LastCallHomefile']);
+         if (isset($tmp[0])) {
+            $LastSync = $tmp[0];
+         }
+         unset($tmp);
+      }
+   }
+         
+   if ($LastSync < (time() - $CallingHome['PushDelay'])) { 
+      $CallHomeNow = true;
+      $Ressource = @fopen($CallingHome['LastCallHomefile'], "w+"); 
+	   if ($Ressource) { 
+	      @fwrite($Ressource, time()); 
+		   @fflush($Ressource); 
+		   @fclose($Ressource); 
+		   @chmod($HashFile, 0777); 
+		}
+   }  
+   
+   if ($CallHomeNow || isset($_GET['callhome'])) {
+      $Reflector->SetCallingHome($CallingHome, $Hash);
+      $Reflector->ReadInterlinkFile();
+      $Reflector->PrepareInterlinkXML();
+      $Reflector->PrepareReflectorXML();
+      $Reflector->CallHome();
+   }
+   
 }
-?>
-<!DOCTYPE html>
+else {
+   $Hash = "";
+}
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4JDNKJBTD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-L4JDNKJBTD');
+    </script>
+   
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,7 +112,7 @@ if ($CallingHome['Active']) {
     <meta name="robots" content="<?php echo $PageOptions['MetaAuthor']; ?>"/>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title><?php echo $Reflector->GetReflectorName(); ?> Reflector Dashboard</title>
+    <title><?php echo $Reflector->GetReflectorName(); ?> Reflector Dashboard - Dark Mode</title>
     <link rel="icon" href="./favicon.ico" type="image/vnd.microsoft.icon">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -105,37 +131,41 @@ if ($CallingHome['Active']) {
     <?php
 
     if ($PageOptions['PageRefreshActive']) {
-        echo '
+      echo '
+   <script src="./js/jquery-1.12.4.min.js"></script>
    <script>
       var PageRefresh;
-
-      function ReloadPage() {';
-        if (($_SERVER['REQUEST_METHOD'] === 'POST') || isset($_GET['do'])) {
-          echo '
-         document.location.href = "./index.php';
-          if (isset($_GET['show'])) {
-            echo '?show=' . $_GET['show'];
-          }
-          echo '";';
-        } else {
-          echo '
-         document.location.reload();';
-        }
-        echo '
+      
+      function ReloadPage() {
+        //if (document.hasFocus()) {
+            $.get("./index.php'.(isset($_GET['show'])?'?show='.$_GET['show']:'').'", function(data) {
+                var BodyStart = data.indexOf("<bo"+"dy");
+                var BodyEnd = data.indexOf("</bo"+"dy>");
+                if ((BodyStart >= 0) && (BodyEnd > BodyStart)) {
+                    BodyStart = data.indexOf(">", BodyStart)+1;
+                    $("body").html(data.substring(BodyStart, BodyEnd));
+                }
+            })
+                .always(function() {
+                    PageRefresh = setTimeout(ReloadPage, '.$PageOptions['PageRefreshDelay'].');
+                });
+      	//} 
       }';
 
-        if (!isset($_GET['show']) || (($_GET['show'] != 'liveircddb') && ($_GET['show'] != 'reflectors') && ($_GET['show'] != 'interlinks'))) {
-            echo '
-      PageRefresh = setTimeout(ReloadPage, ' . $PageOptions['PageRefreshDelay'] . ');';
-        }
-        echo '
+     if (!isset($_GET['show']) || (($_GET['show'] != 'liveircddb') && ($_GET['show'] != 'reflectors') && ($_GET['show'] != 'interlinks'))) {
+         echo '
+      PageRefresh = setTimeout(ReloadPage, '.$PageOptions['PageRefreshDelay'].');';
+     }
+    
+     echo '
 
       function SuspendPageRefresh() {
-        clearTimeout(PageRefresh);
+         clearTimeout(PageRefresh);
       }
    </script>';
-    }
-    if (!isset($_GET['show'])) $_GET['show'] = "";
+   }
+   
+   if (!isset($_GET['show'])) $_GET['show'] = "";
     ?>
 </head>
 <body>
@@ -152,7 +182,7 @@ if ($CallingHome['Active']) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand"><?php echo $Reflector->GetReflectorName(); ?> Multiprotocol Gateway</span>
+            <span class="navbar-brand"><?php echo $Reflector->GetReflectorName(); ?> Multiprotocol Gateway&nbsp;<?php echo $PageOptions['CustomTXT']; ?></span>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -180,6 +210,8 @@ if ($CallingHome['Active']) {
                             href="./index.php?show=reflectors">Reflectorlist</a></li>
                 <li<?php echo ($_GET['show'] == "liveircddb") ? ' class="active"' : ''; ?>><a
                             href="./index.php?show=liveircddb">D-Star live</a></li>
+                <li><a
+                            href="../index.php">Light mode</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

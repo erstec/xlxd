@@ -105,8 +105,8 @@ echo '
 <u><b>Įprastas prisijungimas prie TG24601 BrandMeister grupės yra paprastesnis<br>
 O nuolatiniam XLX trafiko girdėjimui BrandMeister turi galimybę sukonfigūruot Static TG</b></u><br>
 <br>
-<i>Konfigūruojant Pi-Star\'ą (XLX veiks kartu su DMR)</i><br>' . nl2br()
-.'XLX Master: XLX_642, XLX Startup Module: A<br>
+<i>Konfigūruojant Pi-Star\'ą (XLX veiks kartu su DMR)</i><br>
+XLX Master: XLX_642, XLX Startup Module: A<br>
 <u>BrandMeister Network ESSID - privalomas, pastebėta, kad be jo neveikia</u><br>
 Stotelėje nustatyti - Group Call DMR TG6, TS2<br>
 <br>
