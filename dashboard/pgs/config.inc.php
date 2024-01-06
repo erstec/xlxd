@@ -34,7 +34,7 @@ $PageOptions['PeerPage']['LimitTo']                  = 99;		// Number of peers t
 $PageOptions['PeerPage']['IPModus']                  = 'ShowLast1ByteOfIP';	// See possible options above
 $PageOptions['PeerPage']['MasqueradeCharacter']      = '*';		// Character used for  masquerade
 
-$PageOptions['LastHeardPage']['LimitTo']             = 39;		// Number of stations to show
+$PageOptions['LastHeardPage']['LimitTo']             = 19;		// Number of stations to show
 
 $PageOptions['ModuleNames'] = array();					// Module nomination
 //$PageOptions['ModuleNames']['A']                     = 'Int.';
