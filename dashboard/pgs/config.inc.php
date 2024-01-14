@@ -54,7 +54,7 @@ $PageOptions['UserPage']['ShowFilter']               = false;								// Show Fil
 $PageOptions['Traffic']['Show']                      = false;								// Enable vnstat traffic statistics
 $PageOptions['IRCDDB']['Show']                       = false;        // Show liveircddb, set it to false if you are running your db in https 
 
-$PageOptions['CustomTXT']                            = ' - Lithuania XLX DMR-YSF-DStar';					// custom text in your header   
+$PageOptions['CustomTXT']                            = '- Lithuania XLX DMR-YSF-DStar';					// custom text in your header   
 
 $Service['PIDFile']                                  = '/var/log/xlxd.pid';
 $Service['XMLFile']                                  = '/var/log/xlxd.xml';

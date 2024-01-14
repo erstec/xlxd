@@ -50,7 +50,7 @@ $PageOptions['MetaRobots']                           = 'index,follow';          
 
 $PageOptions['UserPage']['ShowFilter']               = false;                                                         // Show Filter on Users page
 
-$PageOptions['CustomTXT']                            = ' - Lithuania XLX DMR-YSF-DStar';					// custom text in your header   
+$PageOptions['CustomTXT']                            = '- Lithuania XLX DMR-YSF-DStar';					// custom text in your header   
 
 $Service['PIDFile']                                  = '/var/log/xlxd.pid';
 $Service['XMLFile']                                  = '/var/log/xlxd.xml';
