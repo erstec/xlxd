@@ -25,6 +25,8 @@
 #include "main.h"
 #include "ctimepoint.h"
 #include "cgatekeeper.h"
+#include "cdmriddirfile.h"
+#include "cdmriddirhttp.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,6 +108,8 @@ bool CGateKeeper::MayLink(const CCallsign &callsign, const CIp &ip, int protocol
         case PROTOCOL_IMRS:
             // first check is IP & callsigned listed OK
             ok &= IsNodeListedOk(callsign, ip);
+            // check if callsign have dmrid registered
+            ok &= IsDMRIdOk(callsign);
             // todo: then apply any protocol specific authorisation for the operation
             break;
             
@@ -149,6 +153,8 @@ bool CGateKeeper::MayTransmit(const CCallsign &callsign, const CIp &ip, int prot
         case PROTOCOL_IMRS:
             // first check is IP & callsigned listed OK
             ok &= IsNodeListedOk(callsign, ip, module);
+            // check if callsign have dmrid registered
+            ok &= IsDMRIdOk(callsign);
             // todo: then apply any protocol specific authorisation for the operation
             break;
             
@@ -274,5 +280,30 @@ bool CGateKeeper::IsPeerListedOk(const CCallsign &callsign, const CIp &ip, char 
     
     // done
     return ok;
+}
+
+bool CGateKeeper::IsDMRIdOk(const CCallsign &callsign) const
+{
+    bool ok = true;
+    
+    // check if callsign have dmrid registered
+    uint32 uiDmrid = 0;
+    g_DmridDir.Lock();
+    {
+        uiDmrid = g_DmridDir.FindDmrid(callsign);
+    }
+    g_DmridDir.Unlock();
+    
+    // std::cout << "DMRID: " << uiDmrid << " for " << callsign << std::endl;
+    
+    if (uiDmrid == 0)
+    {
+        std::cout << "DMRID not found for " << callsign << std::endl;
+    }
+    ok &= (uiDmrid != 0);
+    
+    // done
+    return ok;
+    
 }
 

@@ -63,6 +63,7 @@ protected:
     bool IsNodeListedOk(const CCallsign &, const CIp &, char = ' ') const;
     bool IsPeerListedOk(const CCallsign &, const CIp &, char) const;
     bool IsPeerListedOk(const CCallsign &, const CIp &, char *) const;
+    bool IsDMRIdOk(const CCallsign &) const;
     
 protected:
     // data
